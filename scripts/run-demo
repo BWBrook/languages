@@ -1,0 +1,77 @@
+#!/bin/zsh
+
+set -euo pipefail
+
+language="${1:-}"
+demo="${2:-hello}"
+
+if [[ -z "$language" ]]; then
+  printf "Usage: ./scripts/run-demo <language> [demo]\n" >&2
+  exit 1
+fi
+
+case "$language" in
+  basic)
+    mkdir -p build/basic
+    prg_path="build/basic/${demo}.prg"
+    screen_path="build/basic/${demo}.png"
+    log_path="build/basic/${demo}.log"
+    petcat -w2 -o "$prg_path" -- "languages/basic/demos/${demo}.bas" >/dev/null
+    x64sc -autostart "$prg_path" -autostart-warp -limitcycles 20000000 +confirmonexit -sounddev dummy -exitscreenshot "$screen_path" >"$log_path" 2>&1 || true
+    petcat -2 -- "$prg_path"
+    printf "\nArtifacts:\n"
+    printf "  screenshot: %s\n" "$screen_path"
+    printf "  emulator log: %s\n" "$log_path"
+    ;;
+  c)
+    mkdir -p build/c
+    compiler="clang"
+    if ! command -v "$compiler" >/dev/null 2>&1; then
+      compiler="cc"
+    fi
+    "$compiler" -Wall -Wextra -std=c11 "languages/c/demos/${demo}.c" -o "build/c/${demo}"
+    "build/c/${demo}"
+    ;;
+  java)
+    mkdir -p build/java
+    case "$demo" in
+      hello)
+        class_name="Hello"
+        ;;
+      population_growth)
+        class_name="PopulationGrowth"
+        ;;
+      *)
+        printf "Unknown Java demo: %s\n" "$demo" >&2
+        exit 1
+        ;;
+    esac
+    javac -d build/java "languages/java/demos/${class_name}.java"
+    java -cp build/java "$class_name"
+    ;;
+  javascript)
+    node "languages/javascript/demos/${demo}.js"
+    ;;
+  perl)
+    perl "languages/perl/demos/${demo}.pl"
+    ;;
+  python)
+    python3 "languages/python/demos/${demo}.py"
+    ;;
+  r)
+    Rscript "languages/r/demos/${demo}.R"
+    ;;
+  ruby)
+    ruby "languages/ruby/demos/${demo}.rb"
+    ;;
+  swift)
+    swift "languages/swift/demos/${demo}.swift"
+    ;;
+  tcl)
+    tclsh "languages/tcl/demos/${demo}.tcl"
+    ;;
+  *)
+    printf "Unknown language: %s\n" "$language" >&2
+    exit 1
+    ;;
+esac
