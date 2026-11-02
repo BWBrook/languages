@@ -1,5 +1,7 @@
 # languages
 
+> **Status:** developed in the open as a working record. This is work in progress: contents may change, and nothing here is peer-reviewed unless stated.
+
 This repo is a runnable language notebook: part study guide, part demo collection, and part working conversation with Codex.
 
 The goal is not to become an expert in everything. It is to build a practical feel for how different languages think: how they express ideas, what they are pleasant or painful for, and which tasks they fit best.
@@ -87,3 +89,7 @@ For now, the best first sequence is:
 - What is compiled ahead of time, what is interpreted, and what difference does that make?
 - Where does each language sit on the spectrum from safety to freedom?
 - Which of them feels best for numerical ecology, text munging, systems work, or interactive exploration?
+
+## Licence
+
+Code is released under the [MIT Licence](LICENSE). Text, figures and data created for this project are released under [CC BY-SA 4.0](LICENSE-CONTENT). Third-party material keeps its own terms where stated.
