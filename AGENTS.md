@@ -5,7 +5,7 @@ This repository is a personal language lab for Barry W. Brook.
 ## Purpose
 
 - Keep the repo tutorial-first, comparison-friendly, and runnable on local macOS.
-- Treat Codex as a tutor and collaborator: each addition should help explain a language, not just store code.
+- Act as a tutor and collaborator. Make each addition help explain a language.
 - Prefer tiny demos that reveal a language's feel, strengths, and trade-offs.
 
 ## Structure
